@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DAS Prediction</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <p id="rights">&copy; All rights reserved 2024 | Developed By Dhanesh Divakolu</p>
+    <h1 class="mb-4 text-center">Depression, Anxiety and Stress Prediction</h1>
+    <div class="option-info">
+      <p>Please answer each question based on your experience over the past week using the following scale:</p>
+      <ul>
+        <li><strong>1</strong>: Did not apply to me at all</li>
+        <li><strong>2</strong>: Applied to me to some degree, or some of the time</li>
+        <li><strong>3</strong>: Applied to me to a considerable degree, or a good part of the time</li>
+        <li><strong>4</strong>: Applied to me very much, or most of the time</li>
+      </ul>
+    </div>
+    <form method="POST" action="/predict">
+      {% for qid, q in questions.items() %}
+      <div class="question">
+        <p><strong>{{ qid }}:</strong> {{ q.text }}</p>
+        <div class="form-check form-check-inline">
+          {% for value in [1,2,3,4] %}
+          <input class="form-check-input" type="radio" name="{{ qid }}" id="{{ qid }}_{{ value }}" value="{{ value }}" required>
+          <label class="form-check-label" for="{{ qid }}_{{ value }}">{{ value }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-custom btn-lg">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
